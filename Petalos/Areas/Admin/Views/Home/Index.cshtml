@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Petalos.Models.Datosflores>
+@{
+    Layout = "_Layout";
+}
+
+<h2 class="titulo">LISTA DE FLORES</h2>
+
+<p>
+    <a class="button" href="~/Admin/Home/AgregarFlor">Agregar Flor</a>
+    <a class="button" href="~/Home/Index">Salir</a>
+</p>
+
+<div class="entrada">
+
+    <table id="tablaFlores" style="width: 100%;">
+        <tr style="background: pink;">
+            <th>Flor</th>
+            <th style="width: 60%">Acción</th>
+        </tr>
+
+        @foreach (var flor in Model)
+        {
+            <tr>
+                <td>@(flor.Nombre)</td>
+                <td>
+                    <a href='~/Admin/Home/AgregarImagenes/@(flor.Idflor)'>Agregar Imagenes</a>
+                    <a href='~/Admin/Home/EditarFlor/@(flor.Idflor)'>Editar</a>
+                    <a href='#' onclick="eliminarPop(this)">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    <div id="popConfirmacion" class="popup" runat="server">
+        <div>
+            <h1>Por favor confirme:</h1>
+            <p id="mensajeConfirmacion" runat="server">¿Está seguro de eliminar los datos e imagenes de la flor seleccionada?</p>
+            <label id="florName"></label>
+            <input type="button" value="Si" onclick="eliminarFlor()" />
+            <input type="button" value="No" onclick="cerrarPop()" />
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    let florN = document.querySelector('#florName');
+    let msgDivPop = document.querySelector('#popConfirmacion');
+    function cerrarPop() {
+        msgDivPop.style.display = "none";
+    }
+
+    function eliminarPop(element) {
+        let florNombre = element.parentNode.previousElementSibling.textContent;
+        florN.textContent = florNombre;
+        msgDivPop.style.display = "block";
+    }
+
+    function eliminarFlor() {
+        location.href = `Admin/Home/Eliminar/${florN.textContent}`;
+    }
+</script>
+

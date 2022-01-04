@@ -1,0 +1,39 @@
+﻿@model Petalos.Models.ViewModels.FlorViewModel
+@{
+    Layout = "_Layout";
+}
+
+<section class="post">
+    <h2>@Model.Datos.Nombre</h2>
+
+    <h4>Nombre científico o latino:</h4>
+    <p>@Model.Datos.Nombrecientifico</p>
+    <h4>Nombre común:</h4>
+    <p>@Model.Datos.Nombrecomun</p>
+    <h4>Origen:</h4>
+    <p>@Model.Datos.Origen</p>
+    <h4>Descripción:</h4>
+    <p>
+        @Model.Datos.Descripcion
+    </p>
+
+    <div id="imagenes">
+        @foreach (var imagen in Model.Imagenes)
+        {
+            <img title="@Model.Datos.Nombre" src="~/images/@imagen.Nombreimagen">
+        }
+    </div>
+</section>
+<aside>
+    <nav>
+        <h2>Menú</h2>
+        <ul>
+            @foreach (var flor in Model.Flores)
+            {
+                <li><a href='~/Flor/@flor.Nombre'>@flor.Nombre</a></li>
+            }
+        </ul>
+    </nav>
+</aside>
+
+
